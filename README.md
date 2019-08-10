@@ -3,7 +3,7 @@
 
 Don't let this minimal README fool you. 
 This is a single file that fulfills all your Keyboard/InputView handling needs.
-Copy the InputLayoutGuide.swift file into your project and start using it.
+Copy the [InputLayoutGuide.swift](https://raw.githubusercontent.com/patrickbdev/InputLayoutGuide/master/InputLayoutGuide.swift) file into your project and start using it.
 
 ---
 
