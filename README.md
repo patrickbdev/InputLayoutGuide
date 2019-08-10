@@ -13,7 +13,7 @@ NSLayoutConstraint.activate([
     scrollView.topAnchor.constraint(equalTo: topAnchor),
     scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
     scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-    scrollView.bottomAnchor.constraint(lessThanOrEqualTo: inputLayoutGuide.topAnchor),
+    scrollView.bottomAnchor.constraint(equalTo: inputLayoutGuide.topAnchor),
     ])
 ```
 
@@ -23,6 +23,6 @@ NSLayoutConstraint.activate([
     scrollView.topAnchor.constraint(equalTo: view.topAnchor),
     scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
     scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-    scrollView.bottomAnchor.constraint(lessThanOrEqualTo: view.inputLayoutGuide.topAnchor),
+    scrollView.bottomAnchor.constraint(equalTo: view.inputLayoutGuide.topAnchor),
     ])
 ```
