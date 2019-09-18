@@ -46,6 +46,7 @@ public class InputLayoutGuide: UILayoutGuide {
         let center = NotificationCenter.default
         center.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIWindow.keyboardWillShowNotification, object: nil)
         center.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIWindow.keyboardWillHideNotification, object: nil)
+        center.addObserver(self, selector: #selector(keyboardWillChangeFrame(notification:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -82,6 +83,20 @@ public class InputLayoutGuide: UILayoutGuide {
             owningView.layoutIfNeeded()
         })
     }
+    
+    @objc private func keyboardWillChangeFrame(notification: Notification) {
+        guard
+            let keyboardNotification = KeyboardNotification(notification: notification),
+            let owningView = owningView else {
+                return
+        }
+        
+        heightConstraint.constant = 0
+        
+        UIView.animate(withDuration: keyboardNotification.duration, delay: 0, options: [.beginFromCurrentState, keyboardNotification.animationOptionCurve], animations: {
+            owningView.layoutIfNeeded()
+        })
+    }
 }
 
 private struct KeyboardNotification {
@@ -92,7 +107,7 @@ private struct KeyboardNotification {
     
     init?(notification: Notification) {
         guard
-            [UIWindow.keyboardWillShowNotification, UIWindow.keyboardWillHideNotification].contains(notification.name),
+            [UIWindow.keyboardWillShowNotification, UIWindow.keyboardWillHideNotification, UIWindow.keyboardWillChangeFrameNotification].contains(notification.name),
             let userInfo = notification.userInfo,
             let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval,
             let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
